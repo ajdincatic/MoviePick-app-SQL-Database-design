@@ -10,7 +10,7 @@ create table UserType
 	[Type] nvarchar(50) not null
 )
 
-create table AppUser
+create table [User]
 (
 	Id int identity(1,1) primary key,
 	FirstName nvarchar(50) null,
@@ -44,7 +44,7 @@ create table ProductionCompany
 create table Person
 (
 	Id int identity(1,1) primary key,
-	Photo varbinary(max) not null,
+	Photo varbinary(max) null,
 	Biography nvarchar(500) not null,
 	FirstName nvarchar(100) not null,
 	LastName nvarchar(100) not null,
@@ -60,9 +60,9 @@ create table MovieAndTVShow
 	[Description] nvarchar(1000) not null,
 	[Language] nvarchar(50) not null,
 	RunningTime nvarchar(10) not null,
-	ReleaseDate nvarchar(10) not null,
+	ReleaseDate date not null,
 	Budget float,
-	Poster varbinary(max) not null,
+	Poster varbinary(max) null,
 	NumberOfRatings int not null,
 	Finished bit,
 	ProductionCompanyId int foreign key references ProductionCompany(Id) not null,
@@ -87,7 +87,7 @@ create table TVShowSeasonEpisode
 create table Comment
 (
 	Id int identity(1,1) primary key,
-	AppUserId int foreign key references AppUser(Id) not null,
+	AppUserId int foreign key references [User](Id) not null,
 	MovieAndTVShowId int foreign key references MovieAndTVShow(Id) not null,
 	DateTimeOfComment datetime not null,
 	Content nvarchar(500) not null,
@@ -96,10 +96,11 @@ create table Comment
 create table News
 (
 	Id int identity(1,1) primary key,
-	AuthorId int foreign key references AppUser(Id)  not null,
+	AuthorId int foreign key references [User](Id) not null,
 	DateTimeOfNews datetime not null,
-	CoverPhoto varbinary(max) not null,
+	CoverPhoto varbinary(max) null,
 	Content nvarchar(1000) not null,
+	Title nvarchar(100) not null,
 )
 
 create table Quote
@@ -109,10 +110,10 @@ create table Quote
 	QuoteText nvarchar(100) not null,
 )
 
-create table MovieAndTVShowRating
+create table Rating
 (
 	Id int identity(1,1) primary key,
-	AppUserId int foreign key references AppUser(Id)  not null,
+	AppUserId int foreign key references [User](Id)  not null,
 	MovieAndTVShowId int foreign key references MovieAndTVShow(Id) not null,
 	RatingValue int not null,
 )
