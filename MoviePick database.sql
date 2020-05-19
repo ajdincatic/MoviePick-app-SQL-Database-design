@@ -107,7 +107,7 @@ create table Quote
 (
 	Id int identity(1,1) primary key,
 	MovieAndTVShowId int foreign key references MovieAndTVShow(Id) not null,
-	QuoteText nvarchar(100) not null,
+	QuoteText nvarchar(1000) not null,
 )
 
 create table Rating
